@@ -179,7 +179,7 @@ The rule is unambiguous and does not require tooling support to be applied easil
 [Here is a discussion of different line wrapping styles.]
 
 Use [reference links] to keep the plain text readable.
-Collect links at the end of each section, which are delimited by headings.
+Put links close to where they are used, for example after the paragraph or at the end of the section.
 
 [Here is a discussion of different line wrapping styles.]: https://web.archive.org/web/20220519121408/https://mtsknn.fi/blog/4-1-wrapping-styles-for-markdown-prose-and-code-comments/
 [reference links]: https://github.github.com/gfm/#reference-link
