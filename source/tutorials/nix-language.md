@@ -16,7 +16,7 @@ Notable uses of the Nix language are:
 
   A Linux distribution that can be configured fully declaratively and is based on Nix and Nixpkgs.
 
-  Its underlying modular configuration system is written in the Nix language, and uses packages from Nixpkgs.
+  Its underlying modular configuration system is written in the Nix language and uses packages from Nixpkgs.
   The operating system environment and services it provides are configured with the Nix language.
 
 [nix-manual]: https://nixos.org/manual/nix/stable
@@ -44,7 +44,7 @@ This tutorial only covers the most important language features, briefly discusse
 
 This tutorial should enable you to read typical Nix language code and understand its structure.
 
-It shows the most common and distingushing patterns in the Nix language:
+It shows the most common and distinguishing patterns in the Nix language:
 
 - [Assigning names and accessing values](names-values)
 - Declaring and calling [functions](functions)
@@ -65,7 +65,7 @@ See the [Nix manual][manual-language] for a full language reference.
 - Familiar with functional programming: 1 hour
 - Proficient with functional programming: 30 minutes
 
-We recommend to run all examples.
+We recommend you run all examples.
 Play with them to validate your assumptions and test what you have learned.
 Read detailed explanations if you want to make sure you fully understand the examples.
 
@@ -115,7 +115,7 @@ nix-repl> 1 + 2
 :::{note}
 The Nix language by default uses lazy evaluation, and will only compute values when needed.
 
-Some examples show results of strict evaluation for clarity.
+Some examples show the results of strict evaluation for clarity.
 If your output does not match the example, try prepending `:p` to the input expression.
 
 Example:
@@ -139,7 +139,7 @@ nix-repl> :p { a.b.c = 1; }
 
 #### Evaluating Nix files
 
-Use [`nix-instantiate --eval`][nix-instantiate] to evaluate the expression in a Nix file.
+Use [`nix-instantiate --eval`][nix-instantiate] to evaluate the expression in a Nix file:
 
 ```console
 echo 1 + 2 > file.nix
@@ -152,7 +152,7 @@ nix-instantiate --eval file.nix
 <details><summary>Detailed explanation</summary>
 
 The first command writes `1 + 2` to a file `file.nix` in the current directory.
-The contents of `file.nix` are now `1 + 2`, which you can check with
+The contents of `file.nix` are now `1 + 2`, which you can check with:
 
 ```console
 cat file.nix
@@ -164,7 +164,7 @@ The second command runs `nix-instantiate` with the `--eval` option on `file.nix`
 The resulting value is printed as output.
 
 `--eval` is required to evaluate the file and do nothing else.
-If `--eval` is omitted, `nix-instantiate` expects the expression in the given file to evaluate to a special value called a *Derivation*, which we will come back to at the end of this tutorial in [](derivations).
+If `--eval` is omitted, `nix-instantiate` expects the expression in the given file to evaluate to a special value called a *derivation*, which we will come back to at the end of this tutorial in [derivations](derivations).
 
 </details>
 
@@ -183,7 +183,7 @@ nix-instantiate --eval
 :::{note}
 The Nix language by default uses lazy evaluation, and will only compute values when needed.
 
-Some examples show results of strict evaluation for clarity.
+Some examples show the results of strict evaluation for clarity.
 If your output does not match the example, try adding the `--strict` option to `nix-instantiate`.
 
 Example:
@@ -213,17 +213,17 @@ nix-instantiate --eval --strict file.nix
 
 You may quickly encounter Nix language expressions that look very complicated.
 
-As with any programming language, the required amount of Nix language code closely matches the complexity of the problem it is supposed to solve, and reflects how well the problem – and its solution – is understood.
+As with any programming language, the required amount of Nix language code closely matches the complexity of the problem it is supposed to solve and reflects how well the problem – and its solution – is understood.
 
 Building software is a complex undertaking, and Nix both *exposes* and *allows managing* this complexity with the Nix language.
 
-The purpose of the Nix language is to create *build tasks*: precise descriptions of how contents of existing files are used to derive new files.
+The purpose of the Nix language is to create *build tasks*: precise descriptions of how the contents of existing files are used to derive new files.
 
 :::{important}
 A build task in Nix is called a *derivation*.
 :::
 
-The Nix language has only few basic constructs which can be combined arbitrarily:
+The Nix language has a few basic constructs which can be combined arbitrarily:
 
 - Primitive data types
 
@@ -256,7 +256,7 @@ The most important heuristics to avoid confusion are about white space and paren
    It is otherwise insignificant.
    Line breaks, indentation, and additional spaces are for readers' convenience.
 
-   The following are equivalent:
+   The following expressions are equivalent:
 
    ```nix
    let
@@ -277,7 +277,7 @@ The most important heuristics to avoid confusion are about white space and paren
 
 2. Parentheses are used to force precedence.[^inherit-parens]
 
-   The following are different:
+   The following expressions are different:
 
    ```nix
    let
@@ -319,7 +319,7 @@ Whenever you see an equal sign (`=`) in Nix language code:
 (attrset)=
 ### Attribute set `{ ... }`
 
-An attribute set is a collection of name-value-pairs, where names must be unique.
+An attribute set is a collection of name-value pairs, where names must be unique.
 
 The following example shows all primitive data types, lists, and attribute sets.
 
@@ -433,7 +433,7 @@ Counter-example:
 (let)=
 ### `let ... in ...`
 
-Also known as “`let` expression” or “`let` binding”
+Also known as "`let` expression" or "`let` binding"
 
 `let` expressions allow assigning names to values for repeated use.
 
@@ -451,7 +451,7 @@ a + a
 <details><summary>Detailed explanation</summary>
 
 Assignments are placed between the keywords `let` and `in`.
-In this example we assign `a = 1`.
+In this example, we assign `a = 1`.
 
 After `in` comes the expression in which the assignments are valid, i.e., where assigned names can be used.
 In this example the expression is `a + a`, where `a` refers to `a = 1`.
@@ -654,7 +654,7 @@ is equivalent to
 
     [ a.x a.y a.z ]
 
-Attributes made available through `with` are only in scope of the expression following the semicolon (`;`).
+Attributes made available through `with` are only in the scope of the expression following the semicolon (`;`).
 
 Counter-example:
 
@@ -746,7 +746,7 @@ in [ x y ]
 
 <details><summary>Detailed explanation</summary>
 
-While this example is contrived, in more complex code you will regularly see nested `let` expressions that re-use names from their outer scope.
+While this example is contrived, in more complex code you will regularly see nested `let` expressions that reuse names from their outer scope.
 
 Here we use the attribute set `{ x = 1; y = 2; }` to have something non-trivial to inherit from.
 The `let` expression inherits `x` and `y` from that attribute set using `( )`, which is equivalent to writing:
@@ -765,9 +765,9 @@ The new inner scope now contains `x` and `y`, which are used in the list `[ x y 
 (antiquotation)=
 ### Antiquotation `${ ... }`
 
-Also known as “string interpolation”.
+Also known as "string interpolation".
 
-The value of a Nix expression can be inserted into a character string with the dollar-sign and braces (`${ }`).
+The value of a Nix expression can be inserted into a character string with the dollar sign and braces (`${ }`).
 
 Example:
 
@@ -802,7 +802,7 @@ in
 
 Antiquotation can be arbitrarily nested.
 
-(This can become hard to read, and we recommend to avoid it in practice.)
+(This can become hard to read, and we recommend avoiding it in practice.)
 
 Example:
 
@@ -840,7 +840,7 @@ in
 (file-system-paths)=
 ### File system paths
 
-The Nix language offers convenience syntax for file system paths.
+The Nix language offers a convenient syntactic pattern for file system paths.
 
 Absolute paths always start with a slash (`/`).
 
@@ -911,7 +911,7 @@ Paths can be used in antiquotation – an [impure operation](impurities) we will
 
 #### Search path
 
-Also known as “angle bracket syntax”.
+Also known as "angle bracket syntax".
 
 Example:
 
@@ -934,7 +934,7 @@ For example, `<nixpkgs/lib>` points to the subdirectory `lib` of that file syste
 
     /nix/var/nix/profiles/per-user/root/channels/nixpkgs/lib
 
-While you will see many such examples, we recommend to [avoid search paths](search-path) in practice, as they are [impurities](impurities) which are not reproducible.
+While you will see many such examples, we recommend you [avoid search paths](search-path) in practice, as they are [impurities](impurities), which are not reproducible.
 
 [NIX_PATH]: https://nixos.org/manual/nix/unstable/command-ref/env-common.html?highlight=nix_path#env-NIX_PATH
 [nixpkgs]: https://github.com/NixOS/nixpkgs
@@ -943,9 +943,9 @@ While you will see many such examples, we recommend to [avoid search paths](sear
 (indented-strings)=
 ### Indented strings
 
-Also known as “multi-line strings”.
+Also known as "multi-line strings".
 
-The Nix language offers convenience syntax for character strings which span multiple lines that have common indentation.
+The Nix language offers a convenient syntactic pattern for character strings spanning multiple lines that have a common indentation.
 
 Indented strings are denoted by *double single quotes* (`'' ''`).
 
@@ -990,7 +990,7 @@ Wherever you see a colon (`:`) in Nix language code:
 - On its right is the function body.
 
 Function declarations in the Nix language can appear in different forms.
-Each of them is explained in the following, and here is an overview:
+Each of them is explained below, and here is an overview:
 
 - Single argument
 
@@ -1075,7 +1075,7 @@ Example:
 
 :::{note}
 Function and argument are separated by white space.
-Therefore, in this case parantheses (`( )`) are required to distinguish the function declaration and its argument.
+Therefore, in this case, parentheses (`( )`) are required to distinguish the function declaration and its argument.
 :::
 
 Example:
@@ -1106,12 +1106,12 @@ f v
 
 #### Multiple arguments
 
-Also known as “[curried] functions”.
+Also known as "[curried] functions".
 
 Nix functions take exactly one argument.
 Multiple arguments can be handled by nesting functions.
 
-Such a nested function can be used like a function that takes multiple arguments, but offers additional flexibility.
+Such a nested function can be used like a function that takes multiple arguments but offers additional flexibility.
 
 [curried]: https://en.m.wikipedia.org/wiki/Currying
 
@@ -1146,7 +1146,7 @@ f 1
     <LAMBDA>
 
 
-Applying the function which results from `f 1` to another argument yields the inner body `x + y` (with `x` set to `1` and `y` set to the other argument), which can now be fully evaluated.
+Applying the function that results from `f 1` to another argument yields the inner body `x + y` (with `x` set to `1` and `y` set to the other argument), which can now be fully evaluated.
 
 ```nix
 let
@@ -1161,9 +1161,9 @@ f 1 2
 
 ### Attribute set argument
 
-Also known as “keyword arguments” or “destructuring” .
+Also known as "keyword arguments" or "destructuring".
 
-Nix functions can be declared to require an attribute set with specific structure as argument.
+Nix functions can be declared to require an attribute set with a specific structure as an argument.
 
 This is denoted by listing the expected attribute names separated by commas (`,`) and enclosed in braces (`{ }`).
 
@@ -1212,7 +1212,7 @@ f { a = 1; b = 2; c = 3; }
 
 #### Default values
 
-Also known as “default arguments”.
+Also known as "default arguments".
 
 Destructured arguments can have default values for attributes.
 
@@ -1263,7 +1263,7 @@ f { a = 1; b = 2; c = 3; }
 
 ### Named attribute set argument
 
-Also known as “@ pattern”, “@ syntax”, or “‘at’ syntax”.
+Also known as "@ pattern", "@ syntax", or "'at' syntax".
 
 An attribute set argument can be given a name to be accessible as a whole.
 
@@ -1304,14 +1304,14 @@ You need to know about both to understand and navigate Nix language code.
 
 <!-- TODO: find a place for operators -->
 
-We recommend to at least skim them to familiarise yourself with what is available.
+We recommend to at least skim them to familiarize yourself with what is available.
 
 [operators]: https://nixos.org/manual/nix/stable/language/operators.html
 
 (builtins)=
 ### `builtins`
 
-Also known as “primitive operations” or “primops”.
+Also known as "primitive operations" or "primops".
 
 Nix comes with many functions that are built into the language.
 They are implemented in C++ as part of the Nix language interpreter.
@@ -1373,7 +1373,7 @@ After reading `file.nix` the Nix expression is equivalent to the file contents:
 
 Since a Nix file can contain any Nix expression, `import`ed functions can be applied to arguments immediately.
 
-That is, whenever you see additional tokens after a call to `import`, the value it returns should be a function, and anything that follows are arguments to that function.
+That is, whenever you see additional tokens after a call to `import`, the value it returns should be a function, and anything that follows is an argument to that function.
 
 Example:
 
@@ -1415,7 +1415,7 @@ Parentheses are required to separate function declaration from function applicat
 (pkgs-lib)=
 ### `pkgs.lib`
 
-The [`nixpkgs`][nixpkgs] repository contains an attribute set called [`lib`][nixpkgs-lib], which provides a large number of useful functions.
+The [`nixpkgs`][nixpkgs] repository contains an attribute set called [`lib`][nixpkgs-lib], which provides many useful functions.
 They are implemented in the Nix language, as opposed to [`builtins`](builtins), which are part of the language itself.
 
 :::{note}
@@ -1534,7 +1534,7 @@ declaring data and transforming it with functions.
 In practice, describing build tasks requires observing the outside world.
 
 There is only one impurity in the Nix language that is relevant here:
-reading files from the file system as *build inputs*
+reading files from the file system as *build inputs*.
 
 Build inputs are files that build tasks refer to in their precise description of how to derive new files.
 When run, a build task will only have access to explicitly declared build inputs.
@@ -1542,13 +1542,13 @@ When run, a build task will only have access to explicitly declared build inputs
 The only way to specify build inputs in the Nix language is explicitly with:
 
 - File system paths
-- Dedicated functions.
+- Dedicated functions
 
-Nix and the Nix language refer to files by their content hash. If file contents are not known in advance, it's unavoidable to read files during expression evaluation.
+Nix and the Nix language refer to files by their content hash. If a file's content is not known in advance, the file will be read during expression evaluation.
 
 :::{note}
 Nix supports other types of impure expressions, such as [search paths](search-path) or the constant [`builtins.currentSystem`](https://nixos.org/manual/nix/stable/language/builtin-constants.html#builtins-currentSystem).
-We do not cover those here in more detail, as they do not matter for how the Nix language works in principle, and because they are discouraged for the very reason of breaking reproducibility.
+We do not cover those here in more detail as they do not matter to how the Nix language works in principle and because their use is discouraged for the reason of breaking reproducibility.
 :::
 
 (path-impurities)=
@@ -1657,7 +1657,7 @@ Whenever you see `mkDerivation`, it denotes something that Nix will eventually *
 
 Example: [a package using `mkDerivation`](mkDerivation-example)
 
-The evaluation result of `derivation` (and `mkDerivation`) has the special Nix language data type Derivation.
+The evaluation result of `derivation` (and `mkDerivation`) has the special Nix language data type derivation.
 It behaves like an [attribute set](attrset), except that it can be used in [antiquotation](antiquotation).
 
 Example:
@@ -1676,29 +1676,29 @@ It may produce a different hash or even a different package version.
 
 A derivation's output path is fully determined by its inputs, which in this case come from *some* version of Nixpkgs.
 
-This is why we recommend to [avoid search paths](search-path), except in examples intended for illustration only.
+This is why we recommend [avoiding search paths](search-path), except in examples intended for illustration only.
 :::
 
 <details><summary>Detailed explanation</summary>
 
-The example imports the Nix expression from the search path `<nixpkgs>`, and applies the resulting function to an empty attribute set `{}`.
+The example imports the Nix expression from the search path `<nixpkgs>` and applies the resulting function to an empty attribute set `{}`.
 Its output is assigned the name `pkgs`.
 
-It cannot be inferred from the code above, but `pkgs` is an attribute set of Derivations.
+It cannot be inferred from the code above, but `pkgs` is an attribute set of derivations.
 That is, each of its attributes ultimately boils down to a call to `derivation`.
 
-Converting the attribute `pkgs.nix` to a string with [antiquotation](antiquotation) is allowed, as `pkgs.nix` is a Derivation.
+Converting the attribute `pkgs.nix` to a string with [antiquotation](antiquotation) is allowed, as `pkgs.nix` is a derivation.
 The resulting string is the file system path where the build result of that derivation will end up.
 
 </details>
 
-Antiquotation on Derivation values is used to refer to other build results as file system paths when declaring new build tasks.
+Antiquotation on derivation values is used to refer to other build results as file system paths when declaring new build tasks.
 
 This allows constructing arbitrarily complex compositions of derivations with the Nix language.
 
 ## Worked examples
 
-You should now be able to read Nix language code for simple packages and configurations, and come up with similiar explanations of the following examples.
+You should now be able to read Nix language code for simple packages and configurations and come up with similar explanations of the following examples.
 
 Example:
 
@@ -1749,7 +1749,7 @@ Explanation:
 
 - This expression is a function that takes an attribute set as an argument.
   It returns an attribute set.
-- The argument must at least have the attributes `config` and `pkgs`, and may have more attributes.
+- The argument must at least have the attributes `config` and `pkgs` and may have more attributes.
 - The returned attribute set contains the attributes `imports` and `environment`.
 - `imports` is a list with one element: a path to a file next to this Nix file, called `hardware-configuration.nix`.
   When evaluated, the `./hardware-configuration.nix` will be copied into the Nix store, converting it into a Nix store path.
@@ -1788,8 +1788,8 @@ This example is a (simplified) package declaration from Nixpkgs.
 
 Explanation:
 
-- This expression is a function that takes an attribute set which must have exactly the attributes `lib` and `stdenv`.
-- It returns the result of evaluating the function `mkDerivaion`, which is an attribute of `stdenv`, applied to a recursive set.
+- This expression is a function that takes an attribute set that must have exactly the attributes `lib` and `stdenv`.
+- It returns the result of evaluating the function `mkDerivaion`, which is an attribute of `stdenv` applied to a recursive set.
 - The recursive set passed to `mkDerivation` uses its own `pname` and `version` attributes in the argument to the built-in function `fetchTarball`.
 - The `meta` attribute is itself an attribute set, where the `license` attribute has the value that was assigned to the nested attribute `lib.licenses.gpl3Plus`.
 
@@ -1804,16 +1804,16 @@ Explanation:
 
 To get things done:
 
-- [](declarative-reproducible-envs) – create reproducible shell environments from a Nix file
+- [Declarative and reproducible developer environments](declarative-reproducible-envs) – create reproducible shell environments from a Nix file
 - [Garbage Collection](https://nixos.org/manual/nix/stable/package-management/garbage-collection.html) – remove unused build results from the Nix store
 
 To learn more:
 
 If you worked through the examples, you will have noticed that reading the Nix language reveals the structure of the code, but does not necessarily tell what the code actually means.
 
-Often it is not possible to determine from the code at hand
-- the data type of a named value or function argument.
-- the data type a called function accepts for its argument.
+Often it is not possible to determine from the code at hand:
+- the data type of a named value or function argument,
+- the data type a called function accepts for its argument, or
 - which attributes are present in a given attribute set.
 
 Example:
@@ -1822,20 +1822,20 @@ Example:
 { x, y, z }: (x y) z.a
 ```
 
-How do we know...
-- that `x` will be a function that, given an argument, returns a function?
-- that, given `x` is a function, `y` will be an appropriate argument to `x`?
-- that, given `(x y)` is a function, `z.a` will be an appropriate argument to `(x y)`?
-- that `z` will be an attribute set at all?
-- that, given `z` is an attribute set, it will have an attribute `a`?
-- which data type `y` and `z.a` will be?
-- the data type of the end result?
+How do we know:
+- That `x` will be a function that, given an argument, returns a function?
+- That, given `x` is a function, `y` will be an appropriate argument to `x`?
+- That, given `(x y)` is a function, `z.a` will be an appropriate argument to `(x y)`?
+- That `z` will be an attribute set at all?
+- That, given `z` is an attribute set, it will have an attribute `a`?
+- Which data type `y` and `z.a` will be?
+- The data type of the end result?
 
 And how does the caller of this function know that it requires an attribute set with attributes `x`, `y`, `z`?
 
 Answering such questions requires knowing the context in which a given expression is supposed to be used.
 
-The Nix ecosystem and code style is driven by conventions.
+The Nix ecosystem and code style are driven by conventions.
 Most names you will encounter in Nix language code come from Nixpkgs:
 
 - [Nix Pills][nix-pills] - a detailed explanation of derivations and how Nixpkgs is constructed from first principles
@@ -1850,7 +1850,7 @@ Packages from Nixpkgs can be modified through multiple mechanisms:
 - [overrides] – specifically `override` and `overrideAttrs` to modify single packages
 - [overlays] – to produce a custom variant of Nixpkgs with individually modified packages
 
-Different language ecosystems and frameworks have different requirements to accommodating them into Nixpkgs:
+Different language ecosystems and frameworks have different requirements to accommodate them into Nixpkgs:
 
 - [Languages and frameworks][language-support] lists tools provided by Nixpkgs to build language- or framework-specific packages with Nix.
 
