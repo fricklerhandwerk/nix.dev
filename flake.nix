@@ -3,8 +3,10 @@
 
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.05";
   inputs.flake-utils.url = "github:numtide/flake-utils";
+  inputs.nix_2-13.url = "github:NixOS/nix/2.13-maintenance";
+  inputs.nix_2-18.url = "github:NixOS/nix/2.18-maintenance";
 
-  outputs = { self, nixpkgs, flake-utils }:
+  outputs = { self, nixpkgs, flake-utils, nix_2-13, nix_2-18 }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -61,10 +63,17 @@
           buildPhase = ''
             make html
           '';
-          installPhase = ''
-            mkdir -p $out
-            cp -R build/html/* $out/
-          '';
+          installPhase =
+            let
+              nix_2-13-doc = nix_2-13.packages.${system}.nix.doc;
+              nix_2-18-doc = nix_2-18.packages.${system}.nix.doc;
+            in
+            ''
+              mkdir -p $out/manual/nix/{2.13,2.18}
+              cp -R ${nix_2-13-doc}/share/doc/nix/manual/* $out/manual/nix/2.13
+              cp -R ${nix_2-18-doc}/share/doc/nix/manual/* $out/manual/nix/2.18
+              cp -R build/html/* $out/
+            '';
         };
 
         devShells.default = pkgs.mkShell {
