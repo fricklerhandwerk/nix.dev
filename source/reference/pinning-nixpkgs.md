@@ -1,7 +1,17 @@
-(ref-pinning-nixpkgs)=
+(pinning-nixpkgs)=
 
 # Pinning Nixpkgs
 
+You'll often encounter Nix language code examples with the following pattern:
+
+```nix
+import <nixpkgs> {}
+```
+
+This is a **convenient** way to quickly demonstrate a Nix expression and get it working by importing Nix packages.
+
+
+However, <ref-search-path>**the resulting Nix expression is not fully reproducible**.
 Specifying remote Nix expressions, such as the one provided by Nixpkgs, can be done in several ways:
 
 - [`$NIX_PATH` environment variable](https://nixos.org/manual/nix/stable/command-ref/env-common.html#env-NIX_PATH)

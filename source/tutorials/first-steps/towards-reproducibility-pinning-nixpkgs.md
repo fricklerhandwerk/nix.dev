@@ -2,19 +2,6 @@
 
 # Towards reproducibility: pinning Nixpkgs
 
-In various Nix examples, you'll often see references to [\<nixpkgs>](https://github.com/NixOS/nixpkgs), as follows.
-
-```nix
-{ pkgs ? import <nixpkgs> {}
-}:
-
-...
-```
-
-This is a **convenient** way to quickly demonstrate a Nix expression and get it working by importing Nix packages.
-
-However, <ref-search-path>**the resulting Nix expression is not fully reproducible**.
-
 ## Pinning packages with URLs inside a Nix expression
 
 To create **fully reproducible** Nix expressions, we can pin an exact version of Nixpkgs.
