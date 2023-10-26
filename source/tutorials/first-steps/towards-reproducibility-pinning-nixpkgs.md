@@ -1,73 +1,98 @@
-(pinning-nixpkgs)=
+(dependency-management)=
 
-# Towards reproducibility: pinning Nixpkgs
+# Dependency management with niv
 
-## Pinning packages with URLs inside a Nix expression
+The Nix language can be used to describe dependencies between files managed by Nix.
+Nix expressions themselves can depend on remote sources, and there are multiple ways to specify their origin, as shown in [](pinning-nixpkgs).
 
-To create **fully reproducible** Nix expressions, we can pin an exact version of Nixpkgs.
-
-The simplest way to do this is to fetch the required Nixpkgs version as a tarball specified via the relevant Git commit hash:
-
-```nix
-{ pkgs ? import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/06278c77b5d162e62df170fec307e83f1812d94b.tar.gz") {}
-}:
-
-...
-```
-
-Picking the commit can be done via [status.nixos.org](https://status.nixos.org/),
-which lists all the releases and the latest commit that has passed all tests.
-
-When choosing a commit, it is recommended to follow either
-
-- the **latest stable NixOS** release by using a specific version, such as `nixos-21.05`, **or**
-- the latest **unstable release** via `nixos-unstable`.
-
-## Dependency management with niv
-
-If you'd like a bit more automation around bumping dependencies, including Nixpkgs,
-[niv](https://github.com/nmattia/niv/) is made for exactly that. Niv itself is available
-in `nixpkgs` so using it is simple:
+For more automation around handling remote sources, set up [niv](https://github.com/nmattia/niv/) in your project:
 
 ```shell-session
 $ nix-shell -p niv --run "niv init"
 ```
 
-This command will generate `nix/sources.json` with information about how and where
-dependencies are fetched. It will also create `nix/sources.nix`, which glues the sources together in Nix.
+This command will generate `nix/sources.json` in the current directory, which is a lock file for dependencies.
+It will also create `nix/sources.nix`, which exposes those dependencies as an attribute set.
 
-By default, `niv` will use the **latest stable** NixOS release. However, you should check to see which version is currently specified in [the niv repository](https://github.com/nmattia/niv) if you require a specific release, as it might lag behind.
-
-You can see which version `niv` is tracking as follows:
-
-```shell-session
-$ niv show
-```
-
-And you can change the tracking branch to the one you want like this:
+:::{note}
+By default, `niv init` will add the latest revision of `nixpkgs-unstable` as a source.
+If you need the latest revision of a specific branch:
 
 ```shell-session
-$ niv modify nixpkgs --branch nixos-21.05
+niv init --nixpkgs-branch nixos-23.05
 ```
+:::
 
-You can use the generated `nix/sources.nix` with a top-level `default.nix`:
+Import the generated `nix/sources.nix` for the top-level argument in the top-level `default.nix` and use it to refer to the Nixpkgs source directory:
 
 ```nix
-{ sources ? import ./nix/sources.nix
-, pkgs ? import sources.nixpkgs {}
-}:
-
-...
+{ sources ? import ./nix/sources.nix }:
+let
+  pkgs = import sources.nixpkgs {};
+in {
+  package = pkgs.hello;
+}
 ```
 
-And you can update all the dependencies by running:
+`nix-build` will call the top-level function with the default argument. This pattern allows overriding remote sources programmatically.
+
+We recommend adding niv to the shell environment of your project, so it's readily available.
+
+```nix
+{ sources ? import ./nix/sources.nix }:
+let
+  pkgs = import sources.nixpkgs {};
+in {
+  build = pkgs.hello;
+  shell = pkgs.mkShell {
+    inputsFrom = [ build ];
+    packages = with pkgs; [
+      niv
+    ]
+  };
+}
+```
+
+See [](sharing-shell-dependencies) for details.
+
+## Overriding sources
+
+As an example, we will use the previously created expression with older version of Nixpkgs.
+
+Create a new directory and set up niv with a different version of Nixpkgs:
 
 ```shell-session
-$ nix-shell -p niv --run "niv update"
+mkdir old
+cd old
+niv init --nixpkgs-branch 18.09
+```
+
+Create a file `default.nix` in the new directory, and import the original one with the `sources` just created.
+
+```nix
+import ../default.nix { sources = import ./nix/sources.nix; }
+```
+
+This will result in a different version being built:
+
+```shell-sessiono
+nix-build
+./result/bin/hello --version | head -1
+```
+
+Sources can also be overridden on the command line:
+
+```shell-session
+nix-build .. --arg sources 'import ./nix/sources.nix'
+```
+
+
+Check the built-in help for details:
+
+```shell-session
+niv --help
 ```
 
 ## Next steps
 
-- For more examples and details of the different ways to pin `nixpkgs`, see {ref}`ref-pinning-nixpkgs`.
-- To quickly set up a Nix project, read through
-  [Getting started Nix template](https://github.com/nix-dot-dev/getting-started-nix-template).
+- For more details and examples of the different ways to specify remote sources, see [](pinning-nixpkgs).

@@ -117,7 +117,7 @@ You will often encounter Nix language code samples that refer to `<nixpkgs>`.
 `<...>` is special syntax that was [introduced in 2011] to conveniently access values from the environment variable [`$NIX_PATH`].
 
 [introduced in 2011]: https://github.com/NixOS/nix/commit/1ecc97b6bdb27e56d832ca48cdafd3dbb5185a04
-[`$NIX_PATH`]: https://nixos.org/manual/nix/unstable/command-ref/env-common.html?highlight=nix_path#env-NIX_PATH
+[`$NIX_PATH`]: https://nixos.org/manual/nix/unstable/command-ref/env-common.html#env-NIX_PATH
 
 This means, the value of a search path depends on external system state.
 When using search paths, the same Nix expression can produce different results.
@@ -132,13 +132,13 @@ The state of a subscribed channel is external to the Nix expressions relying on 
 It is not easily portable across machines.
 This may limit reproducibility.
 
-For example, two developers on different machines are likely to have `<nixpkgs>` point to different revisions of the `nixpkgs` repository.
+For example, two developers on different machines are likely to have `<nixpkgs>` point to different revisions of the {term}`Nixpkgs` repository.
 Builds may work for one and fail for the other, causing confusion.
 
 :::{tip}
-Declare dependencies explicitly using the techniques shown in [](ref-pinning-nixpkgs).
+Declare dependencies explicitly using the techniques shown in [](pinning-nixpkgs).
 
-Do not use search paths, except in examples.
+Do not use search paths, except in minimal examples.
 :::
 
 Some tools expect the search path to be set. In that case:
@@ -150,6 +150,34 @@ Set `$NIX_PATH` to a known value in a central location under version control.
 On NixOS, `$NIX_PATH` can be set permanently with the [`nix.nixPath`](https://search.nixos.org/options?show=nix.nixPath) option.
 :::
 ::::
+
+## Reproducible Nixpkgs configuration
+
+To quickly obtain packages for demonstration, we use the following concise pattern:
+
+```nix
+import <nixpkgs> {}
+```
+
+However, even when `<nixpkgs>` is replaced as shown in [](pinning-nixpkgs), the result may still not be fully reproducible.
+This is because, for historical reasons, the [Nixpkgs top-level expression] by default impurely reads from the file system to obtain configuration parameters.
+Systems that have the appropriate files populated may end up with different results.
+
+[Nixpkgs top-level expression]: https://github.com/NixOS/nixpkgs/blob/master/default.nix
+
+It is a well-known problem that can't be resolved without breaking existing setups.
+
+:::{tip}
+Explicitly set [`config`](https://nixos.org/manual/nixpkgs/stable/#chap-packageconfig) and [`overlays`](https://nixos.org/manual/nixpkgs/stable/#chap-overlays) when importing Nixpkgs:
+
+
+```nix
+import <nixpkgs> { config = {}; overlays = []; }
+```
+:::
+
+This is what we do in our tutorials to ensure that the examples will behave exactly as expected.
+We skip it in minimal examples reduce distractions.
 
 ## Updating nested attribute sets
 

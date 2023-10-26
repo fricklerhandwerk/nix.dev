@@ -9,6 +9,7 @@
 
 The Nix logo is inspired by [an idea for the Haskell logo](https://wiki.haskell.org/File:Sgf-logo-blue.png) and the fact that [*nix* is Latin for *snow*](https://nix-dev.science.uu.narkive.com/VDaaP1BY/nix-logo).
 
+(faq-flakes-controversial)=
 ## Why are flakes controversial?
 
 {ref}`Flakes <flakes>` were originally proposed in [RFC 49](https://github.com/NixOS/rfcs/pull/49), and have been in development since 2019.
@@ -31,16 +32,17 @@ Meanwhile, the new interface was adopted widely enough for evolving its design w
 As of the [2022 community survey](https://discourse.nixos.org/t/2022-nix-survey-results/18983), more than half of the user base, a third of which were relative beginners, relied on experimental features.
 {term}`Nixpkgs` as a contrasting example, while featuring a `flake.nix` for compatibility, does not depend on Nix experimental features in its code base.
 
+(faq-enable-flakes)=
 ## Should I enable flakes?
 
 You have to judge for yourself based on your needs.
 
-[Flakes](https://nix.dev/concepts/flakes) and the `nix` command suite bring multiple improvements that are relevant for both software users and package authors:
+[Flakes](flakes) and the `nix` command suite bring multiple improvements that are relevant for both software users and package authors:
 
 - The new command-line interface, together with flakes, makes dealing with existing packages significantly more convenient.
 - The constraints imposed on flakes strengthen reproducibility by default, and enable various performance improvements when interacting with a large Nix package repository like {term}`Nixpkgs`.
 - Flake references allow for easier handling of version upgrades for existing packages or project dependencies.
-- The [flake schema](https://nixos.wiki/wiki/Flakes#Flake_schema) helps with composing Nix projects from multiple sources in an orderly fashion.
+- The [flake schema](https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-flake.html#flake-format) helps with composing Nix projects from multiple sources in an orderly fashion.
 
 Other than that, and below the surface of the flake schema, Nix and the Nix language work exactly the same in both cases.
 In principle, the same level of reproducibility can be achieved with or without flakes.

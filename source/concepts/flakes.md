@@ -40,3 +40,7 @@ Nix handles flakes differently than regular {term}`Nix file`s in the following w
 
   It means full reproducibility of a Nix expression, and, by extension, the resulting build instructions by default, but also prohibits parameterisation of results by consumers.
 
+:::{seealso}
+- [](faq-flakes-controversial)
+- [](faq-enable-flakes)
+:::

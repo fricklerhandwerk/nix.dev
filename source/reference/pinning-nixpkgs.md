@@ -2,21 +2,23 @@
 
 # Pinning Nixpkgs
 
-You'll often encounter Nix language code examples with the following pattern:
+You will often encounter Nix language code samples like this one:
 
 ```nix
 import <nixpkgs> {}
 ```
 
-This is a **convenient** way to quickly demonstrate a Nix expression and get it working by importing Nix packages.
+This is a quick and dirty way to obtain packages for demonstration.
 
+However, <search-path-tutorial>**the resulting Nix expression is not fully reproducible**.
+To create **fully reproducible** Nix expressions, we can pin an exact version of Nixpkgs.
 
-However, <ref-search-path>**the resulting Nix expression is not fully reproducible**.
 Specifying remote Nix expressions, such as the one provided by Nixpkgs, can be done in several ways:
 
 - [`$NIX_PATH` environment variable](https://nixos.org/manual/nix/stable/command-ref/env-common.html#env-NIX_PATH)
 - [`-I` option](https://nixos.org/manual/nix/stable/command-ref/opt-common.html#opt-I) to most of commands like `nix-build`, `nix-shell`, etc.
 - [`fetchurl`](https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchurl), [`fetchTarball`](https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchTarball), [`fetchGit`](https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchGit) or [Nixpkgs fetchers](https://nixos.org/manual/nixpkgs/stable/#chap-pkgs-fetchers) in Nix expressions
+
 
 ## Possible URL values
 
@@ -33,6 +35,14 @@ Specifying remote Nix expressions, such as the one provided by Nixpkgs, can be d
   ```
   https://github.com/NixOS/nixpkgs/archive/eabc38219184cc3e04a974fe31857d8e0eac098d.tar.gz
   ```
+
+  Picking the commit can be done via [status.nixos.org](https://status.nixos.org/),
+  which lists all the releases and the latest commit that has passed all tests.
+
+  When choosing a commit, it is recommended to follow either
+
+  - the **latest stable NixOS** release by using a specific version, such as `nixos-21.05`, **or**
+  - the latest **unstable release** via `nixos-unstable`.
 
 - Using the latest channel version, meaning all tests have passed:
 
