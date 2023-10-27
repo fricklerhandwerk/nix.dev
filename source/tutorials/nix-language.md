@@ -64,7 +64,7 @@ This tutorial *does not* explain all Nix language features in detail and *does n
 See the [Nix manual][manual-language] for a full language reference.
 :::
 
-[manual-language]: https://nixos.org/manual/nix/stable/language/index.html
+[manual-language]: https://nix.dev/manual/nix/2.18/language/index.html
 
 ### What do you need?
 
@@ -139,7 +139,7 @@ Type `:q` to exit [`nix repl`].
 
 :::
 
-[`nix repl`]: https://nixos.org/manual/nix/stable/command-ref/new-cli/nix3-repl.html
+[`nix repl`]: https://nix.dev/manual/nix/2.18/command-ref/new-cli/nix3-repl.html
 
 #### Evaluating Nix files
 
@@ -201,7 +201,7 @@ $ nix-instantiate --eval --strict file.nix
 
 :::
 
-[nix-instantiate]: https://nixos.org/manual/nix/stable/command-ref/nix-instantiate.html
+[nix-instantiate]: https://nix.dev/manual/nix/2.18/command-ref/nix-instantiate.html
 
 ### Notes on whitespace
 
@@ -314,8 +314,8 @@ Nix language data types *without functions* work just like their counterparts in
 - List elements are separated by white space.[^list-whitespace]
 :::
 
-[^attrnames]: Details: [Nix manual - attribute set](https://nixos.org/manual/nix/stable/language/values.html#attribute-set)
-[^list-whitespace]: Details: [Nix manual - list](https://nixos.org/manual/nix/stable/language/values.html#list)
+[^attrnames]: Details: [Nix manual - attribute set](https://nix.dev/manual/nix/2.18/language/values.html#attribute-set)
+[^list-whitespace]: Details: [Nix manual - list](https://nix.dev/manual/nix/2.18/language/values.html#list)
 
 (rec-attrset)=
 #### Recursive attribute set `rec { ... }`
@@ -971,9 +971,9 @@ For example, `<nixpkgs/lib>` points to the subdirectory `lib` of that file syste
 
 While you will see many such examples, we recommend to [avoid search paths](search-path) in practice, as they are [impurities](impurities) which are not reproducible.
 
-[NIX_PATH]: https://nixos.org/manual/nix/unstable/command-ref/env-common.html?highlight=nix_path#env-NIX_PATH
+[NIX_PATH]: https://nix.dev/manual/nix/2.18/command-ref/env-common.html?highlight=nix_path#env-NIX_PATH
 [nixpkgs]: https://github.com/NixOS/nixpkgs
-[manual-primitives]: https://nixos.org/manual/nix/stable/language/values.html#primitives
+[manual-primitives]: https://nix.dev/manual/nix/2.18/language/values.html#primitives
 
 (indented-strings)=
 ### Indented strings
@@ -1480,7 +1480,7 @@ You need to know about both to understand and navigate Nix language code.
 
 We recommend to at least skim them to familiarise yourself with what is available.
 
-[operators]: https://nixos.org/manual/nix/stable/language/operators.html
+[operators]: https://nix.dev/manual/nix/2.18/language/operators.html
 
 (builtins)=
 ### `builtins`
@@ -1508,8 +1508,8 @@ builtins.toString
 <PRIMOP>
 ```
 
-[nix-operators]: https://nixos.org/manual/nix/unstable/language/operators.html
-[nix-builtins]: https://nixos.org/manual/nix/stable/language/builtins.html
+[nix-operators]: https://nix.dev/manual/nix/2.18/language/operators.html
+[nix-builtins]: https://nix.dev/manual/nix/2.18/language/builtins.html
 
 #### `import`
 
@@ -1755,7 +1755,7 @@ The only way to specify build inputs in the Nix language is explicitly with:
 Nix and the Nix language refer to files by their content hash. If file contents are not known in advance, it's unavoidable to read files during expression evaluation.
 
 :::{note}
-Nix supports other types of impure expressions, such as [search paths](search-path) or the constant [`builtins.currentSystem`](https://nixos.org/manual/nix/stable/language/builtin-constants.html#builtins-currentSystem).
+Nix supports other types of impure expressions, such as [search paths](search-path) or the constant [`builtins.currentSystem`](https://nix.dev/manual/nix/2.18/language/builtin-constants.html#builtins-currentSystem).
 We do not cover those here in more detail, as they do not matter for how the Nix language works in principle, and because they are discouraged for the very reason of breaking reproducibility.
 :::
 
@@ -1850,10 +1850,10 @@ The Nixpkgs manual on [Fetchers][nixpkgs-fetchers] lists numerous additional lib
 
 It is an error if the network request fails.
 
-[fetchurl]: https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchurl
-[fetchTarball]: https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchTarball
-[fetchGit]: https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchGit
-[fetchClosure]: https://nixos.org/manual/nix/stable/language/builtins.html#builtins-fetchClosure
+[fetchurl]: https://nix.dev/manual/nix/2.18/language/builtins.html#builtins-fetchurl
+[fetchTarball]: https://nix.dev/manual/nix/2.18/language/builtins.html#builtins-fetchTarball
+[fetchGit]: https://nix.dev/manual/nix/2.18/language/builtins.html#builtins-fetchGit
+[fetchClosure]: https://nix.dev/manual/nix/2.18/language/builtins.html#builtins-fetchClosure
 [nixpkgs-fetchers]: https://nixos.org/manual/nixpkgs/stable/#chap-pkgs-fetchers
 
 (derivations)=
@@ -2033,14 +2033,14 @@ Explanation:
 - [Nixpkgs manual: Functions reference][nixpkgs-functions]
 - [Nixpkgs manual: Fetchers][nixpkgs-fetchers]
 
-[manual-string-interpolation]: https://nixos.org/manual/nix/stable/language/string-interpolation.html
+[manual-string-interpolation]: https://nix.dev/manual/nix/2.18/language/string-interpolation.html
 
 ## Next steps
 
 ### Get things done
 
 - [](declarative-reproducible-envs) – create reproducible shell environments from a Nix file
-- [Garbage Collection](https://nixos.org/manual/nix/stable/package-management/garbage-collection.html) – remove unused build results from the Nix store
+- [Garbage Collection](https://nix.dev/manual/nix/2.18/package-management/garbage-collection.html) – remove unused build results from the Nix store
 
 ### Learn more
 
