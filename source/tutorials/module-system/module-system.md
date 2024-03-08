@@ -67,11 +67,11 @@ Start by changing the first line in `default.nix`:
 
 ```{code-block} diff
 :caption: default.nix
-- { ... }:
-+ { lib, ... }:
-{
+-{ ... }:
++{ lib, ... }:
+ {
 
-}
+ }
 ```
 
 Now the module is a function which takes *at least* one argument, called `lib`, and may accept other arguments (expressed by the ellipsis `...`).
@@ -97,7 +97,7 @@ Change `default.nix` to include the following declaration:
 ```{code-block} diff
 :caption: default.nix
  { lib, ... }: {
-
++
 + options = {
 +   scripts.output = lib.mkOption {
 +     type = lib.types.lines;
@@ -204,12 +204,12 @@ Update `default.nix` by changing the value of `scripts.output` to the following 
 
 ```{code-block} diff
 :caption: default.nix
-   config = {
--    scripts.output = 42;
-+    scripts.output = ''
-+      ./map size=640x640 scale=2 | feh -
-+    '';
-   };
+  config = {
+-   scripts.output = 42;
++   scripts.output = ''
++     ./map size=640x640 scale=2 | feh -
++   '';
+  };
 ```
 
 ## Interlude: reproducible scripts
