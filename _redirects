@@ -7,10 +7,12 @@
 /faq /recipes/faq 301
 /tutorials/contributing /contributing 301
 /tutorials/first-steps/nix-language /tutorials/nix-language 301
-/tutorials/ad-hoc-developer-environments /tutorials/first-steps/ad-hoc-shell-environments 301
+/tutorials/ad-hoc-developer-environments /tutorials/temporary-environments/ad-hoc-shell-environments 301
+/tutorials/first-steps/ad-hoc-shell-environments /tutorials/temporary-environments/ad-hoc-shell-environments 301
 /tutorials/towards-reproducibility-pinning-nixpkgs /tutorials/first-steps/towards-reproducibility-pinning-nixpkgs 301
-/tutorials/declarative-and-reproducible-developer-environments /tutorials/first-steps/declarative-and-reproducible-developer-environments 301
-/tutorials/dev-environment /tutorials/first-steps/dev-environment 301
+/tutorials/declarative-and-reproducible-developer-environments /tutorials/temporary-environments/declarative-and-reproducible-developer-environments 301
+/tutorials/first-steps/declarative-and-reproducible-developer-environments /tutorials/temporary-environments/declarative-and-reproducible-developer-environments 301
+/tutorials/dev-environment /recipes/python-environment 301
 /tutorials/first-steps/dev-environment /recipes/python-environment 301
 /tutorials/continuous-integration-github-actions /tutorials/nixos/continuous-integration-github-actions 301
 /tutorials/building-and-running-docker-images /tutorials/nixos/building-and-running-docker-images 301
@@ -21,14 +23,17 @@
 /contributing/writing-style /contributing/documentation/style-guide 301
 /contributing/style-guide /contributing/documentation/style-guide 301
 /tutorials/nixos/build-and-deploy/* /tutorials/nixos/:splat 301
-/tutorials/first-steps/declarative-and-reproducible-developer-environments /tutorials/first-steps/declarative-shell 301
+/tutorials/first-steps/declarative-and-reproducible-developer-environments /tutorials/temporary-environments/declarative-shell 301
+/tutorials/first-steps/declarative-shell /tutorials/temporary-environments/declarative-shell 301
 /recipes/best-practices /guides/best-practices 301
 /recipes/troubleshooting /guides/troubleshooting 301
 /recipes/faq /guides/faq 301
 /recipes/python-environment /guides/recipes/python-environment 301
 /recipes/direnv /guides/recipes/direnv 301
 /tutorials/learning-journey/sharing-dependencies /guides/recipes/sharing-dependencies 301
-/tutorials/learning-journey/packaging-existing-software /tutorials/packaging-existing-software 301
-/tutorials/file-sets /tutorials/working-with-local-files 301
+/tutorials/learning-journey/packaging-existing-software /tutorials/customisable-packages/packaging-existing-software 301
+/tutorials/packaging-existing-software /tutorials/customisable-packages/packaging-existing-software 301
+/tutorials/file-sets /tutorials/customisable-packages/working-with-local-files 301
+/tutorials/working-with-local-files /tutorials/customisable-packages/working-with-local-files 301
 
 /permalink/stub-ld /guides/faq#how-to-run-non-nix-executables 301

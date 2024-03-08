@@ -1,6 +1,6 @@
 (first-steps)=
 
-# First steps
+# Temporary environments
 
 This tutorial series is where you should start learning Nix.
 

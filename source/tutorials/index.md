@@ -7,11 +7,9 @@ These sections contains series of lessons to get started.
 :glob:
 :maxdepth: 2
 
-first-steps/index.md
+temporary-environments/index.md
 nix-language.md
-Packaging existing software <packaging-existing-software.md>
-Package parameters and overrides <callpackage.md>
-working-with-local-files.md
+customisable-packages/index.md
 nixos/index.md
 cross-compilation.md
 module-system/module-system.md

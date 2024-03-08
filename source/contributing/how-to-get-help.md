@@ -1,3 +1,4 @@
+(how-to-get-help)=
 # How to get help
 
 If you need assistance with one of your contributions, there are a few places you

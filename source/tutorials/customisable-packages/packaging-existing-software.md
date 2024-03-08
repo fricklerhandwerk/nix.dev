@@ -5,7 +5,7 @@ myst:
     "keywords": "Nix, packaging"
 ---
 
-(packaging-existing-software)=
+(packaging-tutorial)=
 # Packaging existing software with Nix
 
 One of Nix's primary use-cases is in addressing common difficulties encountered with packaging software, such as specifying and obtaining dependencies.
@@ -663,8 +663,8 @@ default.nix hello.nix icat.nix result
 ## Next steps
 
 - [Add your own new packages to Nixpkgs](https://github.com/NixOS/nixpkgs/blob/master/CONTRIBUTING.md)
-  - [](../contributing/how-to-contribute.md)
-  - [](../contributing/how-to-get-help.md)
+  - [](how-to-contribute)
+  - [](how-to-get-help)
 - [](callpackage-tutorial)
 - [](sharing-dependencies)
 - [](automatic-direnv)

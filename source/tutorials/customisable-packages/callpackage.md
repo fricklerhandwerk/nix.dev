@@ -33,7 +33,7 @@ This tutorial shows how to use it and why it's beneficial.
 ### What do you need?
 
 - Familiarity with the [Nix language](reading-nix-language)
-- First experience with [packaging existing software](packaging-existing-software)
+- First experience with [packaging existing software](packaging-tutorial)
 
 ### How long does it take?
 
@@ -279,5 +279,5 @@ It also gives you some benefits for free:
 
 ## Next steps
 
-- [](file-sets) - learn to package your own projects with Nix
+- [](file-sets-tutorial) - learn to package your own projects with Nix
 - [](module-system-deep-dive) - learn to wield the functional programming magic behind NixOS
