@@ -183,6 +183,11 @@ To save space, please refer to the following NixOS configuration attributes:
 - [`nix.gc.*`][nix-gc]: Automatic periodic garbage collection Settings
 - [`nix.optimise.*`][nix-optimise]: Automatic periodic nix store optimisation
 
+## Next steps
+
+- [](custom-binary-cache)
+- [](post-build-hook)
+
 ## Alternatives
 
 - [Cachix](https://www.cachix.org): Nix Binary Cache as a Service
@@ -194,9 +199,7 @@ To save space, please refer to the following NixOS configuration attributes:
 ## References
 
 - [Nix Manual on HTTP Binary Cache Store](https://nix.dev/manual/nix/latest/store/types/http-binary-cache-store)
-- [](custom-binary-cache) - Configure clients to use a binary cache
-- [](post-build-hook) - Set up `post-build-hook` Guide
-- [`services.nix-service` module definition](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/nix-serve.nix)
+- [`services.nix-serve` module definition](https://github.com/NixOS/nixpkgs/blob/master/nixos/modules/services/networking/nix-serve.nix)
 
 [nix-serve-options]: https://search.nixos.org/options?query=services.nix-serve
 [nginx-ssl]: https://nixos.org/manual/nixos/stable/#module-security-acme
