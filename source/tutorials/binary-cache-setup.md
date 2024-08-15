@@ -1,12 +1,12 @@
 ---
 myst:
   html_meta:
-    "description lang=en": "Setting Up a Binary Cache to Reuse Builds"
+    "description lang=en": "Setting up a binary cache to reuse builds"
     "keywords": "Nix, caching"
 ---
 
 (binary-cache-setup)=
-# Set up a binary cache
+# Setting up a binary cache
 
 A binary cache stores prebuilt Nix packages and provides them to other machines via network.
 This way, users can accelerate builds and deployments by avoiding rebuilds.

@@ -1,12 +1,12 @@
 ---
 myst:
   html_meta:
-    "description lang=en": "Set up distributed builds"
+    "description lang=en": "Setting up distributed builds"
     "keywords": "Nix, builds, distribution, scaling"
 ---
 
 (distributed-build-setup)=
-# Set up distributed builds
+# Setting up distributed builds
 
 Nix can distribute builds over multiple remote builders to accelerate builds with parallel execution.
 Nix automatically determines the order and parallelity in which packages may be built.
