@@ -8,22 +8,51 @@ myst:
 (binary-cache-setup)=
 # Setting up a binary cache
 
-A binary cache stores prebuilt Nix packages and provides them to other machines via network.
-This way, users can accelerate builds and deployments by avoiding rebuilds.
-Any machine with a nix store can be a binary cache for other machines.
+A binary cache stores prebuilt [Nix store objects](https://nix.dev/manual/nix/latest/store/store-object) and provides them to other machines over the network.
+Any machine with a Nix store can be a binary cache for other machines.
 
-The following configuration makes the following assumptions:
+This way, you can accelerate collaborative software development by avoiding redundant builds.
 
-- The hostname is `cache.example.com` (replace it with yours)
-- The host serves binaries via HTTP (port 80) and optionally via HTTPS (port 443)
+## Introduction
+
+In this tutorial you will set up a Nix binary cache that will serve store objects from a NixOS machine over HTTP or HTTPS.
+
+### What will you learn?
+
+You'll learn how to
+- Set up signing keys for your cache
+- Enable the right services on the NixOS machine serving the cache
+- Check that the setup works as intended
+
+### What do you need
+
+- A machine that runs NixOS
+
+  If you're new to NixOS, learn about the [](module-system-tutorial) and [](nixos-vms) to configure your first system.
+
+- (optional) A public IP and DNS domain
+
+  If you don't host yourself, check [NixOS friendly hosters](https://wiki.nixos.org/wiki/NixOS_friendly_hosters) on the NixOS Wiki.
+  Follow the tutorial on [](provisioning-remote-machines) to deploy your NixOS configuration.
+
+For a cache on a local network, we assume:
+- The hostname is `cache` (replace it with yours, or an IP address)
+- The host serves store objects via HTTP on port 80 (this is the default)
+
+For a publicly accessible cache, we assume:
+- The domain name is `cache.example.com` (replace it with yours)
+- The host serves store objects via HTTPS on port 443 (this is the default)
+
+### How long will it take?
+
+<!-- TODO -->
 
 ## Generate key pair
 
-A pair of private and public keys is important for serving binaries.
-The private key is either used to sign binaries before they are served, or the binary cache signs the binaries while serving them.
+A pair of private and public keys is important to ensure that the store objects in the cache can be trusted.
+The private key is either used to sign store objects right after are built, or the binary cache signs the store objects while serving them.
 
-Generate a key pair for the binary cache.
-Replace the example hostname `cache.example.com` with your hostname.
+To generate a key pair for the binary cache, replace the example hostname `cache.example.com` with your hostname:
 
 ```shell-session
 mkdir /var/secrets
